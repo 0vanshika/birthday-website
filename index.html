@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Mumma . ❤❤❤</title>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet"/>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Pacifico', cursive;
+      background: linear-gradient(to right, #ffe6f0, #fff0f5);
+      overflow-x: hidden;
+      color: #e91e63;
+    }
+
+    header {
+      text-align: center;
+      padding: 50px 20px 30px;
+      font-size: 2.8rem;
+      animation: fadeIn 3s ease;
+    }
+
+    .emoji-rain {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      pointer-events: none;
+      z-index: 1000;
+    }
+
+    .emoji {
+      position: absolute;
+      font-size: 2rem;
+      animation: fall linear infinite;
+    }
+
+    @keyframes fall {
+      0% { transform: translateY(-100px); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+
+    .gallery, .slide-gallery {
+      display: flex;
+      flex-wrap: nowrap;
+      overflow-x: auto;
+      gap: 20px;
+      padding: 20px;
+      scroll-behavior: smooth;
+    }
+
+    .gallery img, .slide-gallery img {
+      flex: 0 0 auto;
+      width: 250px;
+      height: auto;
+      border-radius: 15px;
+      border: 5px solid #fff0f5;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+      transition: transform 0.3s;
+    }
+
+    .gallery img:hover, .slide-gallery img:hover {
+      transform: scale(1.1) rotate(1deg);
+    }
+
+    .notes {
+      text-align: center;
+      padding: 40px 20px;
+      background-color: #fffafc;
+    }
+
+    .note-card {
+      background: #ffe0ec;
+      margin: 10px auto;
+      padding: 20px;
+      max-width: 400px;
+      border-radius: 15px;
+      font-size: 1.3rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+      position: relative;
+    }
+
+    .note-card:hover::after {
+      content: "💗";
+      font-size: 2rem;
+      position: absolute;
+      top: -20px;
+      right: 10px;
+      animation: floatUp 1s ease-out forwards;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(-30px); opacity: 0; }
+    }
+
+    .footer {
+      text-align: center;
+      padding: 30px;
+      font-size: 1.5rem;
+      background-color: #fff0f5;
+    }
+
+    .music-btn {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      font-size: 1.5rem;
+      padding: 10px 15px;
+      background: #fff;
+      border: none;
+      border-radius: 50px;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+      cursor: pointer;
+      z-index: 999;
+    }
+
+    .card-container {
+      text-align: center;
+      padding: 60px 20px;
+    }
+
+    .card {
+      width: 300px;
+      height: 200px;
+      margin: auto;
+      background-color: #ffdde1;
+      border-radius: 10px;
+      perspective: 1000px;
+    }
+
+    .card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 1s;
+      transform-style: preserve-3d;
+      cursor: pointer;
+    }
+
+    .card:hover .card-inner {
+      transform: rotateY(180deg);
+    }
+
+    .card-front, .card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 10px;
+      backface-visibility: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .card-front { background-color: #ffb6c1; }
+    .card-back {
+      background-color: #ffe4e1;
+      transform: rotateY(180deg);
+      padding: 10px;
+    }
+
+    .surprise-section {
+      padding: 50px 20px;
+      background: #fff0f8;
+    }
+
+    .gift-box {
+      position: relative;
+      width: 150px;
+      height: 150px;
+      margin: 40px auto;
+      cursor: pointer;
+      perspective: 1000px;
+    }
+
+    .gift-box .lid {
+      width: 100%;
+      height: 50px;
+      background: #e91e63;
+      position: absolute;
+      top: 0;
+      left: 0;
+      border-radius: 10px 10px 0 0;
+      transition: transform 1s ease;
+      transform-origin: bottom;
+      z-index: 2;
+    }
+
+    .gift-box .box {
+      width: 100%;
+      height: 100%;
+      background: #f06292;
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.2);
+    }
+
+    .gift-box.open .lid {
+      transform: rotateX(-100deg);
+    }
+
+    .message {
+      position: absolute;
+      top: 60%;
+      left: 50%;
+      transform: translate(-50%, -50%) scale(0);
+      background: #fff;
+      padding: 20px;
+      border-radius: 15px;
+      text-align: center;
+      box-shadow: 0 0 30px #ff80ab;
+      transition: transform 1s ease, opacity 1s ease;
+      opacity: 0;
+      z-index: 5;
+    }
+
+    .gift-box.open .message {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+
+    .sparkles {
+      position: absolute;
+      top: 20px;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: 4;
+    }
+
+    .sparkle {
+      position: absolute;
+      font-size: 1.2rem;
+      animation: floatUp 2s ease-out forwards;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; transform: translateY(-20px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+    <audio id="bg-music" src="https://www.bensound.com/bensound-music/bensound-love.mp3" loop></audio>
+    <button class="music-btn" onclick="document.getElementById('bg-music').play()">🎶</button>
+  
+    <div class="emoji-rain" id="emojiRain"></div>
+  
+    <header>Happy Birthday Mumma . ❤❤❤💕😘😘we both love you so much 😍👍❤❤💖🎶 🎂🌸</header>
+  
+    <!-- 🎞️ Sliding Image Gallery -->
+    <section class="slide-gallery">
+      <img src="cute1.jpg" alt="Cute 1">
+      <img src="cute2.jpg" alt="Cute 2">
+      <img src="cute3.jpg" alt="Cute 3">
+      <img src="cute4.jpg" alt="Cute 4">
+      <img src="cute5.jpg" alt="Cute 5">
+      <img src="cute6.jpg" alt="Cute 6">
+    </section>
+  
+    <!-- 🖼️ Static Gallery -->
+    <section class="gallery">
+      <img src="memory1.jpg" alt="Memory 1">
+      <img src="memory2.jpg" alt="Memory 2">
+      <img src="memory3.jpg" alt="Memory 3">
+      <img src="memory4.jpg" alt="Memory 4">
+    </section>
+  
+    <!-- 💌 Birthday Notes -->
+    <section class="notes">
+      <div class="note-card">Maa, tum meri pehli dost, meri sabse acchi dost aur meri zindagi ki sabse special dost ho. Happy Birthday!</div>
+      <div class="note-card">Jo maine seekha, wo sab tumse seekha. Tumse hi to main sab kuch hoon. Happy Birthday, Maa!</div>
+      <div class="note-card">Jahan bhi jaaun, tumhara pyaar mere saath rahe, tumse bada koi saathi nahi ho sakta.</div>
+      <div class="note-card">"Agar main kahoon, ki tum meri zindagi ho, toh kya tumhe yakeen hoga?
+        Maa, tum meri zindagi ki sabse khoobsurat dua ho. Tumhara pyaar meri zindagi ki sabse badi taqat hai, tumhari muskurahat meri duniya ka rang hai.<br/> Jab bhi zindagi mein kisi mod par rukawat aayi, tumhara pyaar hi tha jo mujhe himmat deta gaya. Tumne apne sapne, apni khushi, sab kuch mere liye chhoda. Tumhari har ek chhoti si baat meri duniya ko roshan kar deti hai. Tum ho meri duniya ki roshni, Maa. Agar main kahoon ki tum meri duniya ho, toh yeh sach hai, Maa. Happy Birthday, aapki duaon aur pyaar se hi meri zindagi chalti hai."</div>
+    </section>
+  
+    <!-- 💳 Flip Birthday Card -->
+    <div class="card-container">
+      <div class="card">
+        <div class="card-inner">
+          <div class="card-front">🎉 Tap Me</div>
+          <div class="card-back">You’re the best, Mom! 🌟<br/>Wishing you smiles all year long! 🧁🎀</div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- 🎁 Surprise Gift Section -->
+    <section class="surprise-section">
+      <div class="gift-box" id="giftBox">
+        <div class="lid"></div>
+        <div class="box"></div>
+        <div class="sparkles" id="sparkles"></div>
+        <div class="message">🎊 Surprise! You are loved beyond words 💖</div>
+      </div>
+    </section>
+  
+    <!-- 👣 Footer -->
+    <footer class="footer">Made with 💗 just for you, Mom.</footer>
+  
+    <!-- 🎉 Emoji Rain Script -->
+    <script>
+      const emojiList = ['🎀','🧁','🌷','🩷','🧸','🫶','🎊','💖','✨','💝'];
+      const emojiContainer = document.getElementById('emojiRain');
+  
+      function createEmoji() {
+        const emoji = document.createElement('div');
+        emoji.classList.add('emoji');
+        emoji.innerText = emojiList[Math.floor(Math.random() * emojiList.length)];
+        emoji.style.left = `${Math.random() * 100}%`;
+        emoji.style.animationDuration = `${2 + Math.random() * 3}s`;
+        emojiContainer.appendChild(emoji);
+  
+        setTimeout(() => emoji.remove(), 5000);
+      }
+      setInterval(createEmoji, 300);
+    </script>
+  
+    <!-- 🎁 Gift Box Toggle Script -->
+    <script>
+      const box = document.getElementById('giftBox');
+      const sparkles = document.getElementById('sparkles');
+      const sparkleEmojis = ['✨','💫','🌟','🎉','🪄'];
+  
+      box.addEventListener('click', () => {
+        box.classList.toggle('open');
+        sparkles.innerHTML = '';
+  
+        if (box.classList.contains('open')) {
+          for (let i = 0; i < 30; i++) {
+            const s = document.createElement('div');
+            s.className = 'sparkle';
+            s.innerText = sparkleEmojis[Math.floor(Math.random() * sparkleEmojis.length)];
+            s.style.left = Math.random() * 100 + '%';
+            s.style.top = Math.random() * 100 + '%';
+            sparkles.appendChild(s);
+          }
+        }
+      });
+    </script>
+  </body>
+  </html>
+  
